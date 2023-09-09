@@ -1,0 +1,271 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+
+    min-height: 100vh;
+    background: #4A98F7;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    padding: 25px 0;
+    transition: all 0.3s ease;
+    background-color: #D5AE62;
+    /* background-color: transparent; */
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+.navbar.sticky {
+    background: #1b1b1b;
+    padding: 10px 0;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 30px;
+}
+
+.navbar .menu-list {
+    display: inline-flex;
+    width: max-content;
+    justify-content: space-around;
+    gap: 50px;
+    margin-bottom: 0;
+}
+
+.menu-list li {
+    position: relative;
+}
+
+.menu-list li a {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.icon {
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: none;
+}
+
+.menu-list .cancel-btn {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+}
+
+.menu-list li:hover::after {
+    width: 100%;
+    left: 0%;
+}
+
+.menu-list li::after {
+    content: "";
+    pointer-events: none;
+    bottom: -10px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    border-radius: 5px;
+    background-color: rgb(11, 198, 227);
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
+}
+
+.wrapper-over-view {
+    padding-top: 70px;
+}
+.wrapper-over-view h1 {
+    padding: 50px 0;
+    font-size: 50px;
+    font-weight: 900;
+    font-family: 'Pacifico', cursive;
+    text-align: center;
+    color: #fff;
+}
+
+.container {
+    margin: auto;
+    display: flex;
+    width: 100%;
+    max-width: 1250px;
+    gap: 10px;
+    padding: 10px;
+    padding-bottom: 50px;
+}
+
+section {
+    background-color: #fff;
+    border-radius: 7px;
+}
+
+.tools-board {
+    width: 300px;
+    padding: 15px 20px 0;
+}
+
+.tools-board .wrapper {
+    margin-bottom: 20px;
+}
+
+.wrapper .options {
+    list-style: none;
+    margin: 10px 0 0 5px;
+}
+
+.wrapper .options .option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.option:is(:hover, .active) img {
+    filter: invert(17%) sepia(90%) saturate(3000%) hue-rotate(900deg) brightness(100%) contrast(100% );
+}
+
+.option :where(span, label) {
+    cursor: pointer;
+    color: #ccc;
+    padding-left: 10px;
+}
+
+.option:is(:hover, .active) :where(span, label) {
+    color: #4A98F7;
+}
+
+.option #fill-color {
+    cursor: pointer;
+    height: 14px;
+    width: 14px;
+}
+
+#fill-color:checked ~ label {
+    color: #4A98F7;
+}
+
+.option #size-slider {
+    width: 100%;
+    height: 5px;
+    margin-top: 10px;
+}
+
+.colors .options {
+    display: flex;
+    justify-content: space-between;
+}
+
+.colors .option {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-top: 3px;
+    position: relative;
+}
+
+.colors .option:nth-child(1) {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.colors .option:nth-child(2) {
+    background-color: #000;
+}
+
+.colors .option:nth-child(3) {
+    background-color: #e02020;
+}
+
+.colors .option:nth-child(4) {
+    background-color: #6dd400;
+}
+
+.colors .option:nth-child(5) {
+    background-color: #4A98F7;
+}
+
+.colors .option.selected::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 12px;
+    width: 12px;
+    background: inherit;
+    border-radius: inherit;
+    border: 2px solid #fff;
+}
+
+.colors .option:first-child.selected::before {
+    border-color: #ccc;
+}
+
+.option #color-picker {
+    opacity: 0;
+    cursor: pointer;
+}
+
+.btns button {
+    width: 100%;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 11px 0;
+    margin-bottom: 13px;
+    background-color: none;
+    cursor: pointer;
+}
+
+.btns .clear-canvas {
+    color: #ccc;
+    border: 1px solid #ccc;
+    transition: all .3s ease-in-out;
+}
+
+.btns .clear-canvas:hover {
+    color: #fff;
+    background-color: #4A98F7;
+}
+
+.btns .save-img {
+    background-color: #4A98F7;
+    border: 1px solid #4A98F7;
+}
+
+.drawing-board {
+    flex: 1;
+    /* background-color: aqua; */
+}
+
+.drawing-board canvas {
+    width: 100%;
+    height: 100%;
+}

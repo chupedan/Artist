@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="./anime.min.js"></script>
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            background-color: #CCBC9C;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        input {
+            outline: none;
+        }
+
+        .navbar {
+            position: fixed;
+            width: 100%;
+            z-index: 2;
+            padding: 25px 0;
+            transition: all 0.3s ease;
+            background-color: #D5AE62;
+            /* background-color: transparent; */
+            box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar.sticky {
+            background: #1b1b1b;
+            padding: 10px 0;
+            box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .content {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            margin-right: 30px;
+        }
+
+        .navbar .menu-list {
+            display: inline-flex;
+            width: max-content;
+            justify-content: space-around;
+            gap: 50px;
+            margin-bottom: 0;
+        }
+
+        .menu-list li {
+            position: relative;
+        }
+
+        .menu-list li a {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .icon {
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .menu-list .cancel-btn {
+            position: absolute;
+            right: 30px;
+            top: 20px;
+        }
+
+        .menu-list li:hover::after {
+            width: 100%;
+            left: 0%;
+        }
+
+        .menu-list li::after {
+            content: "";
+            pointer-events: none;
+            bottom: -10px;
+            left: 50%;
+            position: absolute;
+            width: 0%;
+            height: 3px;
+            border-radius: 5px;
+            background-color: rgb(11, 198, 227);
+            transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition-duration: 400ms;
+            transition-property: width, left;
+        }
+
+        /* ---------------------over-view------------------ */
+
+        .over-view {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #CCBC9C;
+        }
+
+        .over-view .wrapper-over-view {
+            position: absolute;
+            z-index: 1;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .over-view h1 {
+            font-size: 90px;
+            font-weight: 900;
+            font-family: 'Pacifico', cursive;
+        }
+
+        .over-view .des {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .over-view img {
+            object-fit: cover;
+        }
+
+        .block {
+            width: 50px;
+            height: 50px;
+            box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .letsgo {
+            width: 200px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            background-color: #ff5252;
+            border: 2px solid #000;
+            border-radius: 10px;
+            box-shadow: 5px 5px 0px #000;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .letsgo:hover {
+            background-color: #fff;
+            border: 2px solid #ff5252;
+            box-shadow: 5px 5px 0px #ff5252;
+        }
+
+        .letsgo:hover a {
+            color: #ff5252;
+        }
+
+        .letsgo:active {
+            background-color: #fcf414;
+            box-shadow: none;
+            transform: translateY(4px);
+        }
+
+        .letsgo a {
+            color: #fff;
+        }
+
+        /* ----------------------artist-------------------------------- */
+
+        .bg-name-artist {
+            position: relative;
+            height: 500px;
+        }
+
+        .artist1,
+        .artist2 {
+            margin-top: 30px;
+        }
+
+        .artist1 .bg-name-artist {
+            margin: auto;
+            width: 80%;
+            border-radius: 52% 33% 40% 40% / 65% 33% 60% 37%;
+            background: linear-gradient(45deg, #1B84E3, #D5610C);
+        }
+
+        .artist2 .bg-name-artist {
+            margin: auto;
+            width: 80%;
+            border-radius: 62% 38% 46% 54% / 73% 70% 30% 27%;
+            background: linear-gradient(75deg, #00A699, #E48F04);
+        }
+
+        .name-artist {
+            text-transform: uppercase;
+            text-align: center;
+            padding-top: 50px;
+            color: #fff;
+        }
+
+        .name-artist h3 {
+            font-size: 50px;
+        }
+
+        .name-artist h1 {
+            font-size: 80px;
+            font-weight: 900;
+        }
+
+        .swiper {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -100px;
+            width: 80%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            margin: 0 auto;
+            /* border: 5px solid #000; */
+            height: 300px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: contain;
+            width: 300px;
+            height: 100%;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .about-artist {
+            width: 100%;
+            height: max-content;
+            align-items: center;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            background-color: #CCBC9C;
+            margin: auto;
+        }
+
+        .about-artist img {
+            width: 350px;
+            height: 350px;
+            object-fit: contain;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        .sub-tittle-name-artist {
+            text-transform: uppercase;
+            font-size: 30px;
+            font-weight: 700;
+            text-shadow: 10px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .detail-artist li {
+            font-size: 18px;
+            letter-spacing: 3px;
+            line-height: 30px;
+        }
+
+        .artist1 .btn-view-arts {
+            background: linear-gradient(135deg, #D5610C, #1B84E3);
+        }
+
+        .btn-view-arts {
+            width: 200px;
+            height: 50px;
+            background: linear-gradient(135deg, #E48F04, #00A699);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: 500px;
+            margin-top: 30px;
+            cursor: pointer;
+            box-shadow: 5px 5px 1px rgba(0, 0, 0, 1);
+        }
+
+        .img-artist {
+            display: flex;
+            justify-content: center;
+        }
+
+        .arts {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .art {
+            margin-bottom: 15px;
+        }
+
+        /* -----------------circle-slider----------------- */
+        .slider {
+            padding: 50px 0;
+            width: 100%;
+            height: max-content;
+            /* background-image: radial-gradient(); */
+            background-image: linear-gradient(to left, #2B2F3A 50%, #E88735 50%);
+            overflow: hidden;
+        }
+
+        .images {
+            /* position: relative; */
+            --rotate: 0deg;
+            transform: rotate(var(--rotate));
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            transition: transform 0.5s ease-in-out;
+            outline: 3px dashed #fff5;
+            outline-offset: -100px;
+        }
+
+        .images .item {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            rotate: calc(60deg * var(--i));
+        }
+
+        .images .item img {
+            height: 110px;
+        }
+
+        .sumary-of-pic {
+            color: #fff;
+            text-align: justify;
+            width: 450px;
+        }
+
+        .sumary-of-pic h1 {
+            color: #fff;
+            font-size: xxx-large;
+        }
+
+        .sumary-of-pic .item {
+            display: none;
+        }
+
+        .sumary-of-pic .item.active {
+            display: block;
+        }
+
+        @keyframes showContent {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .sumary-of-pic .item.active h1 {
+            opacity: 0;
+            animation: showContent 0.5s ease-in-out 1 forwards;
+        }
+
+        .sumary-of-pic .item.active .des {
+            opacity: 0;
+            animation: showContent 0.5s 0.3s ease-in-out 1 forwards;
+        }
+
+        #next {
+            display: none;
+        }
+
+        .cc {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .blur-effect {
+            filter: blur(1px);
+        }
+
+        .zoom {
+            width: max-content;
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .zoom img {
+            width: 300px;
+        }
+
+        .imgZoom {
+            position: absolute;
+            left: 0;
+            top: 0;
+            /* Đặt tên các biến cho thuận tiện sử dụng lại giá trị sau này */
+            --zoom-x: 50%; 
+            --zoom-y: 50%;
+            transform: scale(1.5);
+            opacity: 0.5;
+            pointer-events: none;
+            clip-path: circle(100px at var(--zoom-x) var(--zoom-y));
+            /* Cắt hình ảnh theo hình tròn có bán kính 100px ở vị trí (--zoom-x, --zoom-y) */
+            opacity: 0;
+        }
+
+        .wrapper-zoom {
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .artist2 .slider {
+            display: flex;
+            justify-content: center;
+            height: max-content;
+            /* max-height: fit-content; */
+            background-image: linear-gradient(45deg, #2B2F3A, #E88735);
+        }
+
+        /* ----------------------------search section----------------------------------- */
+        .search-seaction {
+            background-color: #fff;
+            padding-bottom: 30px;
+        }
+
+        .search-seaction h1 {
+            font-size: 40px;
+            font-weight: 800;
+            text-align: center;
+            /* margin: 40px 0; */
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .search-seaction form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .search-seaction #search-input {
+            width: 60%;
+            max-width: 400px;
+            padding: 10px 20px;
+            border: none;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .search-seaction #search-btn {
+            padding: 10px 20px;
+            background-color: #1B84E3;
+            color: #fff;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+
+        .search-seaction #search-results {
+            max-width: 80%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 33.33%);
+            grid-gap: 40px;
+        }
+
+
+
+        @media (max-width: 1000px) {
+            .search-seaction #search-results {
+                display: grid;
+                grid-template-columns: repeat(2, 50%);
+                grid-gap: 40px;
+            }
+            .wrapper-over-view h1 {
+                font-size: 70px;
+                text-align: center;
+            }
+            .wrapper-over-view .des {
+                font-size: 25px;
+            }
+            .detail-artist {
+                margin-left: 25%;
+            }
+        }
+
+        @media (max-width: 868px) {
+            body.disabled {
+                overflow: hidden;
+            }
+
+            .icon {
+                display: block;
+            }
+
+            .icon.hide {
+                display: none;
+            }
+
+            .navbar .menu-list {
+                position: fixed;
+                height: 100vh;
+                width: 100%;
+                max-width: 400px;
+                left: -100%;
+                top: 0px;
+                display: block;
+                padding: 40px 0;
+                text-align: center;
+                background: #222;
+                transition: all 0.3s ease;
+            }
+
+            .navbar.show .menu-list {
+                left: 0%;
+            }
+
+            .navbar .menu-list li {
+                margin-top: 45px;
+            }
+
+            .navbar .menu-list li a {
+                font-size: 23px;
+                margin-left: -100%;
+                transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            }
+
+            .navbar.show .menu-list li a {
+                margin-left: 0px;
+            }
+
+            .wrapper-over-view h1 {
+                font-size: 40px;
+                text-align: center;
+            }
+            .wrapper-over-view .des {
+                font-size: 20px;
+            }
+            .detail-artist {
+                margin-left: 25%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .search-seaction #search-results {
+                display: grid;
+                grid-template-columns: repeat(1, 80%);
+                /* grid-gap: 40px; */
+            }
+            .detail-artist {
+                margin-left: 10px;
+            }
+        }
+
+        .search-seaction #search-results img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .search-seaction #show-more-btn {
+            background-color: #1B84E3;
+            font-size: 18px;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            display: block;
+            margin: 30px auto 0;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* ------------------------------footer------------------------- */
+        footer {
+            width: 100%;
+            height: 200px;
+            background-color: #111;
+        }
+
+        .nav-footer,
+        .social {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-footer {
+            background-color: #292929;
+
+        }
+
+        footer ul {
+            list-style-type: none;
+            width: 1000px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-bottom: 0;
+        }
+
+        footer li {
+            display: inline-block;
+        }
+
+        footer a {
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        footer i {
+            font-size: 20px;
+            margin-top: 5px;
+        }
+
+        .social ul {
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social li {
+            width: 30px;
+            height: 30px;
+            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .nav-footer li {
+            transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition-duration: 400ms;
+            transition-property: color;
+            position: relative;
+        }
+
+        .nav-footer li:hover::after {
+            width: 100%;
+            left: 0%;
+        }
+
+        .nav-footer li::after {
+            content: "";
+            pointer-events: none;
+            bottom: -10px;
+            left: 50%;
+            position: absolute;
+            width: 0%;
+            height: 3px;
+            border-radius: 5px;
+            background-color: rgb(11, 198, 227);
+            transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition-duration: 400ms;
+            transition-property: width, left;
+        }
+
+        /* --------------------try your self-------------------------- */
+        .try-your-self {
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAGQCAIAAABnC3SKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQ1IDc5LjE2MzQ5OSwgMjAxOC8wOC8xMy0xNjo0MDoyMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkY4MzcxNUYxQTc1NzExRTk5MEJGRDA2QkQ5MkE0QTVGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkY4MzcxNUYyQTc1NzExRTk5MEJGRDA2QkQ5MkE0QTVGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RjgzNzE1RUZBNzU3MTFFOTkwQkZEMDZCRDkyQTRBNUYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RjgzNzE1RjBBNzU3MTFFOTkwQkZEMDZCRDkyQTRBNUYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5246U/AAAGtklEQVR42uyb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) left top repeat-x;
+            background-size: contain;
+            width: 100%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .try-your-self::before {
+            position: absolute;
+            content: '';
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 50px;
+            background-image: linear-gradient(to top, #fff, transparent);
+        }
+
+        .try-your-self a {
+            width: 200px;
+            height: 50px;
+            background: transparent;
+            position: relative;
+            padding: 5px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #1B84E3;
+            border-radius: 25px;
+            outline: none;
+            overflow: hidden;
+            color: #1B84E3;
+            transition: color 0.3s 0.1s ease-out;
+            text-align: center;
+        }
+
+        .try-your-self a span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .try-your-self a::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            content: '';
+            border-radius: 50%;
+            display: block;
+            width: 20em;
+            height: 20em;
+            left: -5em;
+            text-align: center;
+            transition: box-shadow 0.5s ease-out;
+            /* z-index: -1; */
+        }
+
+        .try-your-self a:hover {
+            color: #fff;
+            border: 1px solid #1B84E3;
+        }
+
+        .try-your-self a:hover::before {
+            box-shadow: inset 0 0 0 10em #1B84E3;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="content">
+            <ul class="menu-list">
+                <div class="icon cancel-btn">
+                    <i class="bx bx-x"></i>
+                </div>
+                <li><a href="#">Home</a></li>
+                <li><a href="#about-us">About us</a></li>
+                <li><a href="#artists">Artists</a></li>
+                <li><a href="#free-trial">Free trial</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="./login.php">Login</a></li>
+            </ul>
+            <div class="icon menu-btn">
+                <i class="bx bx-menu"></i>
+            </div>
+        </div>
+    </nav>
+    <div id="about-us" class="over-view">
+        <div class="wrapper-over-view">
+            <h1>Welcome to Masterpieces Unveiled</h1>
+            <div class="des">Step into the realm of artistic brilliance. <br>
+                Behold captivating paintings, sculptures, and
+                mixed media creations by renowned artists
+            </div>
+            <div class="letsgo">
+                <a href="">Let's go</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="artists" class="artist">
+        <div class="artist2">
+        <div class="bg-name-artist">
+            <div class="name-artist">
+                <h3>Vincent</h3>
+                <h1>Van Gogh</h1>
+            </div>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="./img/vangogh1.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="./img/vangogh2.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="./img/vangogh3.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="./img/vangogh5.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="./img/vangogh6.jpg" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="./img/vangogh4.jpg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="about-artist row">
+                <div class="img-artist col-xl-6">
+                    <img src="./img/vangogh.png"
+                        style="clip-path: polygon(100% 0, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0 0);">
+                </div>
+                <div class="detail-artist col-xl-6">
+                    <div class="sub-tittle-name-artist">Vincent Van Gogh</div>
+                    <ul>
+                        <li><b>Born: </b>March 30, 1853, Zundert, Netherlands</li>
+                        <li><b>Died: </b>July 29, 18903, Auvers-sur-Oise, France</li>
+                        <li><b>Nationality: </b>Dutch</li>
+                        <li><b>Art movement: </b>Post-Impressionist</li>
+                    </ul>
+                    <a href="#zoom-vanG" class="btn-view-arts">View arts</a>
+                </div>
+            </div>
+            <div class="slider" id="zoom-vanG">
+                <div class="wrapper-zoom row">
+                    <div class="zoom col-xl-4">
+                        <img src="./img/vangogh1.jpg" />
+                        <img src="./img/vangogh1.jpg" class="imgZoom" />
+                    </div>
+                    <div class="zoom col-xl-4">
+                        <img src="./img/vangogh2.jpg" />
+                        <img src="./img/vangogh2.jpg" class="imgZoom" />
+                    </div>
+                    <div class="zoom col-xl-4">
+                        <img src="./img/vangogh3.jpg" />
+                        <img src="./img/vangogh3.jpg" class="imgZoom" />
+                    </div>
+                    <div class="zoom col-xl-4">
+                        <img src="./img/vangogh4.jpg" />
+                        <img src="./img/vangogh4.jpg" class="imgZoom" />
+                    </div>
+                    <div class="zoom col-xl-4">
+                        <img src="./img/vangogh5.jpg" />
+                        <img src="./img/vangogh5.jpg" class="imgZoom" />
+                    </div>
+                    <div class="zoom col-xl-4">
+                        <img src="./img/vangogh6.jpg" />
+                        <img src="./img/vangogh6.jpg" class="imgZoom" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="artist1">
+            <div class="bg-name-artist">
+                <div class="name-artist">
+                    <h3>pablo</h3>
+                    <h1>picasso</h1>
+                </div>
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="./img/picasso1.webp" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./img/picasso2.webp" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./img/picasso3.webp" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./img/picasso4.webp" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./img/picasso5.webp" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="./img/picasso6.webp" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-artist row">
+                <div class="img-artist col-xl-6">
+                    <img src="./img/picasso.png">
+                </div>
+                <div class="detail-artist col-xl-6">
+                    <div class="sub-tittle-name-artist">pablo picasso</div>
+                    <ul>
+                        <li><b>Born: </b>25 October 1881, Malaga, Spain</li>
+                        <li><b>Died: </b>08 April 1973, Mougins, France</li>
+                        <li><b>Nationality: </b>Spanish</li>
+                        <li><b>Art movement: </b>Cubism</li>
+                    </ul>
+                    <a href="#circle-slider" class="btn-view-arts">View arts</a>
+                </div>
+            </div>
+            <div id="circle-slider" class="slider">
+                <div class="row cc">
+                    <div class="images col-xl-6">
+                        <div class="item" style="--i: 1;">
+                            <img src="./img/picasso1.webp">
+                        </div>
+                        <div class="item" style="--i: 2;">
+                            <img src="./img/picasso2.webp">
+                        </div>
+                        <div class="item" style="--i: 3;">
+                            <img src="./img/picasso3.webp">
+                        </div>
+                        <div class="item" style="--i: 4;">
+                            <img src="./img/picasso4.webp">
+                        </div>
+                        <div class="item" style="--i: 5;">
+                            <img src="./img/picasso5.webp">
+                        </div>
+                        <div class="item" style="--i: 6;">
+                            <img src="./img/picasso6.webp">
+                        </div>
+                    </div>
+                    <div class="sumary-of-pic col-xl-6">
+                        <div class="item active">
+                            <h1>Ma Jolie</h1>
+                            <div class="des">
+                                "Ma Jolie" painted in 1912, is an iconic example of Picasso's Analytical Cubism. This
+                                artwork
+                                features fragmented and abstracted forms, including a guitar and sheet music. The
+                                limited
+                                color
+                                palette and overlapping perspectives create a sense of depth and complexity. The title
+                                translates to "My Pretty" and possibly references Picasso's affection for his lover. "Ma
+                                Jolie"
+                                is a groundbreaking piece that revolutionized art and contributed to the development of
+                                modern
+                                art movements.
+                            </div>
+                        </div>
+                        <div class="item ">
+                            <h1>A Weeping Woman</h1>
+                            <div class="des">
+                                "A Weeping Woman" depict a woman in distress with tears
+                                streaming down her face. The artwork showcases Picasso's signature Cubist style,
+                                characterized
+                                by fragmented and distorted forms. The painting conveys a sense of emotional pain and
+                                sorrow,
+                                with the woman's distorted features capturing the intensity of her grief. Through bold
+                                brushstrokes and vibrant colors, Picasso captures the raw emotions of human suffering. A
+                                Weeping
+                                Woman serves as a powerful symbol of the universal experiences of sadness and anguish
+                                that
+                                resonate with viewers across time and cultures.
+                            </div>
+                        </div>
+                        <div class="item">
+                            <h1>The Old Guitarist</h1>
+                            <div class="des">
+                                "The Old Guitarist" is a renowned painting by Pablo Picasso, created in 1903-1904. It
+                                depicts an
+                                elderly, blind musician hunched over his guitar. The artwork is characterized by its
+                                somber
+                                color palette and the guitarist's emaciated figure. Picasso's use of blue tones conveys
+                                a
+                                sense
+                                of melancholy and portrays the hardships of the subject's life. The painting reflects
+                                Picasso's
+                                Blue Period, during which he explored themes of poverty, suffering, and isolation.
+                                Despite
+                                the
+                                desolation depicted, the guitarist's passionate connection to his instrument symbolizes
+                                the
+                                power of art to transcend adversity. "The Old Guitarist" serves as a poignant
+                                representation
+                                of
+                                human resilience and the enduring beauty found in the midst of hardship.
+                            </div>
+                        </div>
+                        <div class="item">
+                            <h1>Figures at the Seaside</h1>
+                            <div class="des">
+                                "Figures at the Seaside" is painted from 1931. It depicts simplified human
+                                figures on a beach, showcasing Picasso's experimentation with abstract forms and bold
+                                colors.
+                                The vibrant palette and fragmented shapes convey a sense of energy and movement. Despite
+                                the
+                                simplified style, the figures exude a lively presence. The painting captures the essence
+                                of
+                                a
+                                seaside scene, evoking a sense of leisure and relaxation. Through his unique artistic
+                                interpretation, Picasso invites viewers to engage with the scene and interpret the
+                                emotions
+                                and
+                                interactions of the figures.
+                            </div>
+                        </div>
+                        <div class="item">
+                            <h1>The Soup</h1>
+                            <div class="des">
+                                "The Soup" is created in 1902. It depicts a mother feeding her child
+                                with a bowl of soup, showcasing Picasso's early Blue Period. The artwork portrays the
+                                hardships
+                                of poverty and captures a sense of melancholy. The somber blue tones and expressive
+                                brushwork
+                                convey a mood of despair and vulnerability. The mother's hunched posture and the child's
+                                downturned face reflect their difficult circumstances. Despite the sadness depicted,
+                                there
+                                is a
+                                tenderness and intimacy in the act of nurturing.
+                            </div>
+                        </div>
+                        <div class="item">
+                            <h1>Portrait of Dora Maar</h1>
+                            <div class="des">
+                                "Portrait of Dora Maar" is painted from 1937. It depicts Dora Maar, a
+                                prominent photographer and Picasso's lover at the time. The artwork showcases Picasso's
+                                Cubist
+                                style, with fragmented forms and distorted features. The use of vibrant colors and bold
+                                brushstrokes adds intensity to the portrait. Dora Maar's contemplative expression and
+                                piercing
+                                eyes reveal a sense of inner turmoil and complexity. Picasso's portrayal captures both
+                                her
+                                physical beauty and emotional depth.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="next"></button>
+    </div>
+
+    <div id="free-trial" class="try-your-self">
+        <a href="">
+            <span>Try Yourself</span>
+        </a>
+    </div>
+
+    <div id="research" class="search-seaction">
+        <h1>Image search</h1>
+        <form id="search-form" action="">
+            <input type="text" id="search-input">
+            <button id="search-btn">Search</button>
+        </form>
+
+        <div id="search-results">
+        </div>
+
+        <button id="show-more-btn">Show more</button>
+    </div>
+
+    <footer>
+        <div class="nav-footer">
+            <ul>
+                <li><a href="">about us</a></li>
+                <li><a href="">help us improve</a></li>
+                <li><a href="">support</a></li>
+            </ul>
+        </div>
+
+        <div class="social">
+            <ul>
+                <li><a href=""><i class='bx bxl-facebook-circle'></i></a></li>
+                <li><a href=""><i class='bx bxl-instagram'></i></a></li>
+                <li><a href=""><i class='bx bxl-youtube'></i></a></li>
+            </ul>
+        </div>
+
+    </footer>
+
+
+    <script>
+        // responsive trang web khi ở chế độ mobile
+        const body = document.querySelector("body");
+        const navbar = document.querySelector(".navbar");
+        const menuBtn = document.querySelector(".menu-btn");
+        const cancelBtn = document.querySelector(".cancel-btn");
+        menuBtn.onclick = () => {
+            navbar.classList.add("show"); // khi ấn vô nút menu thì sẽ show ra
+            menuBtn.classList.add("hide"); // 
+            body.classList.add("disabled");
+        }
+        cancelBtn.onclick = () => {
+            body.classList.remove("disabled");
+            navbar.classList.remove("show");
+            menuBtn.classList.remove("hide");
+        }
+
+        // -------------------over-view----------------
+        var bgImgs =    ["./img/vangogh1.jpg", "./img/vangogh2.jpg", "./img/vangogh3.jpg", "./img/vangogh4.jpg", "./img/vangogh5.jpg", "./img/vangogh6.jpg", "./img/picasso1.webp", "./img/picasso2.webp", "./img/picasso3.webp", "./img/picasso4.webp", "./img/picasso5.webp", "./img/picasso6.webp"];
+
+        const overView = document.querySelector('.over-view');
+        // tạo ra 20 hình ngẫu nhiêu bay quanh
+        for (let i = 0; i < 20; i++) {
+            const block = document.createElement('img'); // tạo thẻ img để chứa ảnh
+            const randomIndex = Math.floor(Math.random() * bgImgs.length); // tạo random các phần tử trong mảng btImgs
+            block.src = bgImgs[randomIndex]; // hình ảnh nhận src random từ mảng đã cho trên 
+            block.classList.add('block'); // thêm thuộc tính css .block
+            overView.appendChild(block); // thêm vào overView
+        }
+
+        // sử dụng thư viện animeJs
+        function animateBlocks() {
+            anime({
+                targets: '.block', // chọn class block làm animation
+                translateX: () => {
+                    return anime.random(-200, 150); // random sang trục x từ (-200, 150)
+                },
+                translateY: () => {
+                    return anime.random(-300, 300); // random sang trục y từ (-300, 300)
+                },
+                translateZ: () => {
+                    return anime.random(-2, 2); // random sang trục Z từ (-2, 2)
+                },
+                scale: () => {
+                    return anime.random(1, 5); // giãn nở của hình từ (1, 5)
+                },
+                easing: 'linear', // hiệu ứng chuyển động
+                duration: 3000, // thời gian chuyển động
+                delay: anime.stagger(10),
+                complete: animateBlocks, 
+                // khác với loop là mỗi lần chuyển động thì sau đó nó sẽ thực hiện tiếp, còn loop là nó sẽ đi lại từ đầu
+            })
+        }
+
+        animateBlocks();
+
+        // -------------------artist--------------------
+
+
+        // sử dụng thư viện swipeJs
+        var swiper = new Swiper(".mySwiper", {
+            effect: "coverflow",
+            grabCursor: true, 
+            centeredSlides: true, // căn chỉnh slide ở giữa
+            spaceBetween: 90, // khoảng cách giữa các slide
+            slidesPerView: "auto",
+            loop: true, // có lặp
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false, // cho phép hoặc vô hiệu hóa chế độ tự động khi người dùng tương tác với Swiper
+            },
+            coverflowEffect: {
+                rotate: 10,
+                stretch: 0, // kích thước kéo dãn của slide,
+                depth: 200, // độ sâu của slide
+                modifier: 1, // kích thước của slide
+                slideShadows: true, // bóng
+            },
+        });
+
+        // -----------------circle-slide-------------
+        let next = document.getElementById('next');
+        let image = document.querySelector('.images');
+        let items = document.querySelectorAll('.images .item');
+        let contents = document.querySelectorAll('.sumary-of-pic .item');
+
+        let rotate = 0;
+        let active = 0;
+        let countItem = items.length;
+        let rotateAdd = 360 / countItem;
+
+        function nextSlider() {
+            active = active + 1 > countItem - 1 ? 0 : active + 1; // nếu .active lớn hơn độ dài mảng thì sẽ bằng 0, còn ko thì tiếp tục tăng
+            rotate = rotate - rotateAdd;
+            show();
+        }
+
+        function show() {
+            image.style.setProperty("--rotate", rotate + 'deg'); // thay đổi giá trị của thuộc tính --rotate
+            image.style.setProperty("--rotate", rotate + 'deg');
+            contents.forEach((content, key) => {  // gán cho mỗi .sumary-of-pic .item sự kiện thêm và xóa .active
+                if (key == active) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            })
+        }
+        next.onclick = nextSlider;
+        setInterval(nextSlider, 3000); // tự động ấn nút mỗi 3s
+
+        // --------------------artist2---------------
+        let zooms = document.querySelectorAll('.zoom');
+
+        zooms.forEach(zoom => {
+            let imgZoom = zoom.querySelector('.imgZoom');
+
+            zoom.addEventListener('mousemove', (e) => {
+                imgZoom.style.opacity = 1;
+                let positionPx = e.x - zoom.getBoundingClientRect().left;
+                let positionX = (positionPx / zoom.offsetWidth) * 100;
+                imgZoom.style.setProperty('--zoom-x', positionX + '%');
+                // thay đổi thuộc tính của biến imgZoom
+
+                let positionPy = e.y - zoom.getBoundingClientRect().top;
+                let positionY = (positionPy / zoom.offsetHeight) * 100;
+                imgZoom.style.setProperty('--zoom-y', positionY + '%');
+
+                let transformX = -(positionX - 50) / 3.5;
+                let transformY = -(positionY - 50) / 3.5;
+
+                imgZoom.style.transform = `scale(1.5) translateX(${transformX}%) translateY(${transformY}%)`;
+            });
+
+            zoom.addEventListener('mouseout', (e) => {
+                imgZoom.style.opacity = 0;
+            });
+        });
+
+        // -------------------search -------------------
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchForm = document.getElementById('search-form');
+            const searchBox = document.getElementById('search-input');
+            const searchResult = document.getElementById('search-results');
+            const showMore = document.getElementById('show-more-btn');
+            const accessKey = "cqSiJnOVm4MmFO9KEXEUY-OX9hytr4FRyG9yZoalU94";
+
+
+            let keyword = ""; // lấy giá trị để tìm kiếm
+            let page = 1; // 1 page chỉ có 12 pic
+
+            // vì lấy api nên sẽ không đồng bộ, vì vậy thêm async và await vào
+            async function searchImgs() {
+                keyword = searchBox.value; // lấy giá trị từ ô searchBox
+                const url = `https://api.unsplash.com/search/photos?page=${page}&query=${keyword}&client_id=${accessKey}&per_page=12`;
+                // lấy api theo đường dẫn
+                const response = await fetch(url); 
+                // gán biến response cho việc fetch api (Từ khóa await được sử dụng để đợi cho đến khi Promise hoàn thành và trả về kết quả)
+                const data = await response.json(); 
+                // phương thức json() để đọc và xử lý nội dung của phản hồi từ máy chủ và trả về kiểu dữ liệu Json
+
+                if (page === 1) {
+                    searchResult.innerHTML = '';
+                }
+
+                const results = data.results; // lấy kết quả của obj results
+
+                // sử dụng map() để lặp qua các key của obj
+                results.map((results) => {
+                    const image = document.createElement("img"); // tạo thẻ img để chứa ảnh
+                    image.src = results.urls.small; // img này được lấy từ urls.small
+
+                    const imageLink = document.createElement("a"); // tạo thẻ a 
+                    imageLink.href = results.links.html;
+                    imageLink.target = "_blank"; // khi ấn vào thì sẽ đi tới link đó ở tab mới
+
+                    imageLink.appendChild(image); // đưa vào imageLink
+                    searchResult.appendChild(imageLink); // đưa vào searchResult
+                    // searchResult.appendChild(des);
+                });
+                showMore.style.display = "block"; // khi tìm kiếm xong 1 đợt sẽ xuất hiện nút show more
+            };
+
+            // khi ấn submit thì sẽ gọi hàm searchImgs() để thực hiện
+            searchForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                page = 1;
+                searchImgs();
+            });
+
+            // sau khi ấn nút show more thì sẽ tăng chỉ số của page lên => từ đó tăng số lượng ảnh lên
+            showMore.addEventListener('click', () => {
+                page++;
+                searchImgs(); 
+            })
+        })
+
+    </script>
+
+</body>
+
+</html>
